@@ -6,5 +6,5 @@ two proof of concept examples temporarily loaded in index.html and midikey.html 
 
 end product will have button keys arranged that when played back will play back the corresponding tones for do re mi fa so la ti do. 
 
-stretch goals will be a dropdown for choosing different instrument sounds and an event listener for connecting an external instrument that will receive and parse midi note on/off data.
+stretch goals will be a dropdown for choosing different instrument sounds and an event listener for connecting an external hardware instrument connected to the host compueter that will receive and parse midi note on/off data.
 
