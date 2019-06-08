@@ -1,0 +1,31 @@
+div {
+  position: relative;
+  display: grid;
+  columns: 8;
+
+}
+
+#do {
+  background-color: yellow;
+}
+#re {
+  background-color: green;
+}
+#me {
+  background-color: blue;
+}
+#fa {
+  background-color: red;
+}
+#so {
+  background-color: orange;
+}
+#la {
+  background-color: pink;
+}
+#te {
+  background-color: purple;
+}
+#do-top {
+  background-color: brown;
+}

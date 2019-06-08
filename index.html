@@ -1,23 +1,35 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
+  <!-- links to axios for API data calls as well as links go the webaudiofont API for using webaudio to load sound fonts -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/webmidi"></script>
   <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
   <script src='https://surikov.github.io/webaudiofontdata/sound/0250_SoundBlasterOld_sf2.js'></script>
-  <script>
-    var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-    var audioContext = new AudioContextFunc();
-    var player = new WebAudioFontPlayer();
-    player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
-    function play() {
-      player.queueWaveTable(audioContext, audioContext.destination
-        , _tone_0250_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
-      return false;
-    }
-  </script>
+  <script defer src="script.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <section>
+    <input placeholder="zip code">
+    <button>Current Weather</button>
+  </section>
   <p><a href='javascript:play();'>Hello, world!</a></p>
+  <section>
+    <!-- Elements containing ID's linking to eventlisteners to trigger js tone playback functions -->
+    <div id="do">do</div>
+    <div id="re">re</div>
+    <div id="me">me</div>
+    <div id="fa">fa</div>
+    <div id="so">so</div>
+    <div id="la">la</div>
+    <div id="te">te</div>
+    <div id="do-top">do</div>
+  </section>
 </body>
 
 </html>
