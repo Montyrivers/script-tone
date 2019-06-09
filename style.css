@@ -6,7 +6,14 @@ body {
   background: linear-gradient(to right, white, lightblue, lightpink, lightgreen, lightblue, cyan);
   margin: 0;
 }
-
+p {
+  background-color: yellow;
+  border-radius: 100%;
+  text-align: center;
+}
+.sunshine {
+  display: none;
+}
 section {
   background-color: turquoise;
 } 
@@ -14,10 +21,11 @@ section {
 section .search {
   background-color: whitesmoke;
 }
-section .major-tones {
+section .tones {
   background-color: grey;
   display: none;
 }
+
 div {
   position: relative;
   display: grid;
@@ -28,27 +36,55 @@ div {
 
 #do {
   background-color: yellow;
+  display: none;
+}
+#di {
+  background-color: darkkhaki;
+  display: none;
 }
 #re {
   background-color: green;
+  display: none;
+}
+#ri {
+  background-color: darkolivegreen;
+  display: none;
 }
 #me {
   background-color: blue;
+  display: none;
 }
 #fa {
   background-color: red;
+  display: none;
+}
+#fi {
+  background-color: darkred;
+  display: none;
 }
 #so {
   background-color: orange;
+  display: none;
+}
+#si {
+  background-color: darkorange;
+  display: none;
 }
 #la {
   background-color: pink;
+  display: none;
+}
+#li {
+  background-color: magenta;
+  display: none;
 }
 #te {
   background-color: purple;
+  display: none;
 }
 #do-top {
   background-color: brown;
+  display: none;
 }
 
 

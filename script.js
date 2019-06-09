@@ -53,21 +53,61 @@ const playCfive = () => {
     , _tone_0250_SoundBlasterOld_sf2, 0, 16.24 * 4 + 7, 2);
   return false;
 }
+//Minor/sharped note functions
+const playCshFour = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0250_SoundBlasterOld_sf2, 0, 13.50 * 4 + 7, 2);
+  return false;
+}
+const playDshFour = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0250_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
+  return false;
+}
+const playFshFour = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0250_SoundBlasterOld_sf2, 0, 14.74 * 4 + 7, 2);
+  return false;
+}
+const playGshFour = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0250_SoundBlasterOld_sf2, 0, 15.26 * 4 + 7, 2);
+  return false;
+}
+const playAshFour = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0250_SoundBlasterOld_sf2, 0, 15.76 * 4 + 7, 2);
+  return false;
+}
+
+
+
 //Document selector tags and their respective event listeners to call playback functions upon being clicked on.
 const majorDo = document.querySelector('#do');
+const minorDi = document.querySelector('#di');
 const majorRe = document.querySelector('#re');
+const minorRi = document.querySelector('#ri');
 const majorMe = document.querySelector('#me');
 const majorFa = document.querySelector('#fa');
+const minorFi = document.querySelector('#fi');
 const majorSo = document.querySelector('#so');
+const minorSi = document.querySelector('#si');
 const majorLa = document.querySelector('#la');
+const minorLi = document.querySelector('#li');
 const majorTe = document.querySelector('#te');
 const majorDoTop = document.querySelector('#do-top');
 
 majorDo.addEventListener("click", function () {
   playCfour();
 });
+minorDi.addEventListener("click", function () {
+  playCshFour();
+});
 majorRe.addEventListener("click", function () {
   playDfour();
+});
+minorRi.addEventListener("click", function () {
+  playDshFour();
 });
 majorMe.addEventListener("click", function () {
   playEfour();
@@ -75,11 +115,20 @@ majorMe.addEventListener("click", function () {
 majorFa.addEventListener("click", function () {
   playFfour();
 });
+minorFi.addEventListener("click", function () {
+  playFshFour();
+});
 majorSo.addEventListener("click", function () {
   playGfour();
 });
+minorSi.addEventListener("click", function () {
+  playGshFour();
+});
 majorLa.addEventListener("click", function () {
   playAfour();
+});
+minorLi.addEventListener("click", function () {
+  playAshFour();
 });
 majorTe.addEventListener("click", function () {
   playBfour();
@@ -168,26 +217,79 @@ const weatherByZip = () => {
 
     const clearSky = (weath) => {
       const statsSection = document.querySelector('.weather-stats');
-      const tones = document.querySelector('.major-tones');
+      const tones = document.querySelector('.tones');
+      const sun = document.querySelector('.sunshine');
       const stats = document.createElement('ul');
-      if (weath === "Clear") {
-        tones.style.display = "block";
-        statsSection.innerHTML = "";
-        stats.innerHTML = `
+      statsSection.innerHTML = "";
+      stats.innerHTML = `
         <h1>${locale}</h1>
         <li>Condition: ${condition}</li>
-        <li>Current Temp: ${toCelsius}C ${toFahrenheit}F</li>
-        <li>Daily-Low: ${lowToCelsius}C ${lowToFahrenheit}F</li>
-        <li>Daily-High: ${highToCelsius}C ${highToFahrenheit}F</li>
+        <li>Current Temp: ${toCelsius}C, ${toFahrenheit}F</li>
+        <li>Daily-Low: ${lowToCelsius}C, ${lowToFahrenheit}F</li>
+        <li>Daily-High: ${highToCelsius}C, ${highToFahrenheit}F</li>
         <li>Humidity Index: ${humidity}</li>
         <li>Wind Speed: ${windSpd}kph, ${windSpdMph}mph</li>
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
         <li>Wind Direction: ${windDir} Degrees ${windCompass(windDir)} </li>`
-        statsSection.appendChild(stats);
+      statsSection.appendChild(stats);
+      if (weath === "Clear") {
+        sun.style.display = "block"
+        tones.style.display = "block"; //prepare to reset to display: none when building other condition layouts.
+        majorDo.style.display = "block"
+        minorDi.style.display = "none"
+        majorRe.style.display = "block"
+        majorMe.style.display = "block"
+        majorFa.style.display = "block"
+        minorFi.style.display = "none"
+        majorSo.style.display = "block"
+        minorSi.style.display = "none"
+        majorLa.style.display = "block"
+        minorLi.style.display = "none"
+        majorTe.style.display = "block"
+        majorDoTop.style.display = "block"
+        return
+      } else if (weath === "Clouds") {
+        sun.style.display = "none";
+        tones.style.display = "block";
+        majorDo.style.display = "block"
+        minorDi.style.display = "none"
+        majorRe.style.display = "block"
+        minorRi.style.display = "block"
+        majorMe.style.display = "none"
+
+        majorFa.style.display = "block"
+        minorFi.style.display = "none"
+        majorSo.style.display = "block"
+        minorSi.style.display = "block"
+        majorLa.style.display = "none"
+        minorLi.style.display = "none"
+        majorTe.style.display = "block"
+        majorDoTop.style.display = "block"
+        return
+      } else if (weath === "Haze") {
+        sun.style.display = "none";
+        tones.style.display = "block";
+        majorDo.style.display = "block"
+        minorDi.style.display = "block"
+        majorRe.style.display = "none"
+        minorRi.style.display = "none"
+        majorMe.style.display = "block"
+        majorFa.style.display = "block"
+        minorFi.style.display = "none"
+        majorSo.style.display = "block"
+        minorSi.style.display = "block"
+        majorLa.style.display = "none"
+        minorLi.style.display = "none"
+        majorTe.style.display = "block"
+        majorDoTop.style.display = "block"
+      }
+      else {
+        sun.style.display = "none"
+        tones.style.display = "none"
         return
       }
     }
-    clearSky("Clear");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze
+    clearSky("Haze");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze
   })
 
   return
