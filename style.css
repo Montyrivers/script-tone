@@ -1,7 +1,28 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  background: linear-gradient(to right, white, lightblue, lightpink, lightgreen, lightblue, cyan);
+  margin: 0;
+}
+
+section {
+  background-color: turquoise;
+} 
+
+section .search {
+  background-color: whitesmoke;
+}
+section .major-tones {
+  background-color: grey;
+  display: none;
+}
 div {
   position: relative;
   display: grid;
   columns: 8;
+  margin: 0 auto;
 
 }
 
@@ -28,4 +49,17 @@ div {
 }
 #do-top {
   background-color: brown;
+}
+
+
+
+
+
+
+
+
+
+footer {
+  position: relative;
+  margin-top: 800px;
 }
