@@ -74,6 +74,15 @@ const playMist = () => {
     , _tone_0010_SoundBlasterOld_sf2, 0, 15.26 * 4 + 7, 2);
   return false
 }
+const playSnow = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 16.24 * 4 + 7, 2);
+  return false;
+}
 //major scale note functions.  When called each generates a tone by note number multiplied up to an audible frequency, as well as a parameter that includes note duration.
 const playCfour = () => {
   player.queueWaveTable(audioContext, audioContext.destination
@@ -151,6 +160,7 @@ const clouds = document.querySelector('#clouds');
 const haze = document.querySelector('#haze');
 const fog = document.querySelector('#fog');
 const mist = document.querySelector('#mist');
+const snow = document.querySelector('#snow');
 const majorDo = document.querySelector('#do');
 const minorDi = document.querySelector('#di');
 const majorRe = document.querySelector('#re');
@@ -181,6 +191,9 @@ fog.addEventListener("click", function () {
 })
 mist.addEventListener("click", function () {
   playMist();
+})
+snow.addEventListener("click", function () {
+  playSnow();
 })
 majorDo.addEventListener("click", function () {
   playCfour();
@@ -460,7 +473,7 @@ const weatherByZip = () => {
 
         return
       } else if (weath === "Snow") {
-        //
+        //do re me fa so si li dotop
         sun.style.display = "none";
         clouds.style.display = "none";
         haze.style.display = "none";
@@ -470,13 +483,13 @@ const weatherByZip = () => {
         snow.style.display = "block"
         tones.style.display = "block";
         majorDo.style.display = "block"
-        minorDi.style.display = "block"
-        majorRe.style.display = "none"
-        minorRi.style.display = "block"
-        majorMe.style.display = "none"
+        minorDi.style.display = "none"
+        majorRe.style.display = "block"
+        minorRi.style.display = "none"
+        majorMe.style.display = "block"
         majorFa.style.display = "block"
-        minorFi.style.display = "block"
-        majorSo.style.display = "none"
+        minorFi.style.display = "none"
+        majorSo.style.display = "block"
         minorSi.style.display = "block"
         majorLa.style.display = "none"
         minorLi.style.display = "block"
@@ -490,10 +503,11 @@ const weatherByZip = () => {
         rain.style.display = "none"
         tones.style.display = "none"
         mist.style.display = "none"
+        snow.style.display = "none"
         return
       }
     }
-    clearSky("Mist");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?
+    clearSky("Snow");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?
   });
 
   return

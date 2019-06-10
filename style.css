@@ -30,6 +30,9 @@ p {
 #mist {
   display: none;
 }
+#snow {
+  display: none;
+}
 section {
   background-color: turquoise;
 } 
