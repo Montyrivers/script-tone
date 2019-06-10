@@ -7,7 +7,11 @@ let AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 let audioContext = new AudioContextFunc();
 let player = new WebAudioFontPlayer();
 player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
-player.loader.decodeAfterLoading(audioContext, '_tone_0010_SoundBlasterOld_sf2'); //sf2 patches should also be linked in the CDN in your HTML file.
+player.loader.decodeAfterLoading(audioContext, '_tone_0010_SoundBlasterOld_sf2');
+player.loader.decodeAfterLoading(audioContext, '_tone_0150_SoundBlasterOld_sf2');
+player.loader.decodeAfterLoading(audioContext, '_tone_0480_SoundBlasterOld_sf2');
+player.loader.decodeAfterLoading(audioContext, '_tone_0530_SoundBlasterOld_sf2');
+player.loader.decodeAfterLoading(audioContext, '_tone_0140_SoundBlasterOld_sf2');//sf2 patches should also be linked in the CDN in your HTML file.
 function play() {
   player.queueWaveTable(audioContext, audioContext.destination
     , _tone_0010_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
@@ -29,11 +33,12 @@ const playClear = () => {
 }
 const playClouds = () => {
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
+    , _tone_0150_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
+    , _tone_0150_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+    , _tone_0150_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+
   return false;
 }
 const playHaze = () => {
@@ -47,11 +52,11 @@ const playHaze = () => {
 }
 const playRain = () => {
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+    , _tone_0480_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 4);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 14.49 * 4 + 7, 2);
+    , _tone_0480_SoundBlasterOld_sf2, 0, 14.49 * 4 + 7, 4);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 15.76 * 4 + 7, 2);
+    , _tone_0480_SoundBlasterOld_sf2, 0, 15.76 * 4 + 7, 4);
   return false;
 }
 const playFog = () => {
@@ -67,20 +72,20 @@ const playFog = () => {
 const playMist = () => {
   //do ri si
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+    , _tone_0140_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
+    , _tone_0140_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 15.26 * 4 + 7, 2);
+    , _tone_0140_SoundBlasterOld_sf2, 0, 15.26 * 4 + 7, 2);
   return false
 }
 const playSnow = () => {
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+    , _tone_0530_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+    , _tone_0530_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 16.24 * 4 + 7, 2);
+    , _tone_0530_SoundBlasterOld_sf2, 0, 16.24 * 4 + 7, 2);
   return false;
 }
 //major scale note functions.  When called each generates a tone by note number multiplied up to an audible frequency, as well as a parameter that includes note duration.
@@ -379,6 +384,8 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Haze") {
+        skies.style.background = "linear-gradient(to left, orange, lightblue, cyan, orange, grey, orange)";
+        //music element display settings:
         clouds.style.display = "none"
         sun.style.display = "none";
         haze.style.display = "block"
@@ -402,6 +409,8 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Rain") {
+        skies.style.background = "linear-gradient(to right, grey, whitesmoke, grey, silver, grey, whitesmoke)";
+        //
         clouds.style.display = "none"
         sun.style.display = "none";
         haze.style.display = "none";
@@ -448,6 +457,7 @@ const weatherByZip = () => {
         majorTe.style.display = "none"
         majorDoTop.style.display = "block"
       } else if (weath === "Mist") {
+        skies.style.background = "linear-gradient(to right, silver, lightblue, cyan, silver, lightblue, grey)";
         //do di ri fa fi si li dotop
         sun.style.display = "none";
         clouds.style.display = "none";
@@ -473,6 +483,7 @@ const weatherByZip = () => {
 
         return
       } else if (weath === "Snow") {
+        skies.style.background = "linear-gradient(to left, white, whitesmoke, silver, whitesmoke, white, silver)";
         //do re me fa so si li dotop
         sun.style.display = "none";
         clouds.style.display = "none";
