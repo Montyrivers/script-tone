@@ -3,15 +3,25 @@ html {
 }
 
 body {
-  background: linear-gradient(to right, white, lightblue, lightpink, lightgreen, lightblue, cyan);
+  /* background: linear-gradient(to right, white, lightblue, lightpink, lightgreen, lightblue, cyan); */
   margin: 0;
 }
 p {
   background-color: yellow;
   border-radius: 100%;
   text-align: center;
+  padding: 8em;
 }
-.sunshine {
+#clear {
+  display: none;
+}
+#clouds {
+  display: none;
+}
+#haze {
+  display: none;
+}
+#rain {
   display: none;
 }
 section {
@@ -20,17 +30,21 @@ section {
 
 section .search {
   background-color: whitesmoke;
+  border-radius: 100%;
 }
 section .tones {
   background-color: grey;
   display: none;
+  border-radius: 100%;
 }
 
 div {
   position: relative;
+  padding: 3em;
   display: grid;
   columns: 8;
   margin: 0 auto;
+  border-radius: 100%;
 
 }
 

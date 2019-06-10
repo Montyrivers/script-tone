@@ -7,11 +7,55 @@ var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContextFunc();
 var player = new WebAudioFontPlayer();
 player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
+player.loader.decodeAfterLoading(audioContext, '_tone_0010_SoundBlasterOld_sf2'); //sf2 patches should also be linked in the CDN in your HTML file.
 function play() {
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0250_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
+    , _tone_0010_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.74 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
   return false;  //returning a false boolean kills the function process for each note.  this is important because without this the cpu and memory allocated to produce sound from this function might not terminate without returning false at the end.
 }
+//Chord Functions.
+const playClear = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.74 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+  return false;
+}
+const playClouds = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+  return false;
+}
+const playHaze = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 10.24 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14.49 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 15.26 * 4 + 7, 2);
+  return false
+}
+const playRain = () => {
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14.49 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 15.76 * 4 + 7, 2);
+  return false;
+
+}
+
 //major scale note functions.  When called each generates a tone by note number multiplied up to an audible frequency, as well as a parameter that includes note duration.
 const playCfour = () => {
   player.queueWaveTable(audioContext, audioContext.destination
@@ -83,6 +127,10 @@ const playAshFour = () => {
 
 
 //Document selector tags and their respective event listeners to call playback functions upon being clicked on.
+const rain = document.querySelector('#rain');
+const clear = document.querySelector('#clear');
+const clouds = document.querySelector('#clouds');
+const haze = document.querySelector('#haze');
 const majorDo = document.querySelector('#do');
 const minorDi = document.querySelector('#di');
 const majorRe = document.querySelector('#re');
@@ -96,7 +144,18 @@ const majorLa = document.querySelector('#la');
 const minorLi = document.querySelector('#li');
 const majorTe = document.querySelector('#te');
 const majorDoTop = document.querySelector('#do-top');
-
+clear.addEventListener("click", function () {
+  playClear();
+});
+clouds.addEventListener("click", function () {
+  playClouds();
+});
+haze.addEventListener("click", function () {
+  playHaze();
+});
+rain.addEventListener("click", function () {
+  playRain();
+});
 majorDo.addEventListener("click", function () {
   playCfour();
 });
@@ -218,9 +277,10 @@ const weatherByZip = () => {
     const clearSky = (weath) => {
       const statsSection = document.querySelector('.weather-stats');
       const tones = document.querySelector('.tones');
-      const sun = document.querySelector('.sunshine');
+      const sun = document.querySelector('#clear');
       const stats = document.createElement('ul');
-      statsSection.innerHTML = "";
+      const skies = document.querySelector('body')
+      statsSection.innerHTML = "";  //lists parsed weather object data
       stats.innerHTML = `
         <h1>${locale}</h1>
         <li>Condition: ${condition}</li>
@@ -232,8 +292,12 @@ const weatherByZip = () => {
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
         <li>Wind Direction: ${windDir} Degrees ${windCompass(windDir)} </li>`
       statsSection.appendChild(stats);
-      if (weath === "Clear") {
+      if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.  
+        skies.style.background = "linear-gradient(to right, white, lightblue, lightpink, lightgreen, lightblue, cyan)"
+        rain.style.display = "none"
         sun.style.display = "block"
+        clouds.style.display = "none"
+        haze.style.display = "none"
         tones.style.display = "block"; //prepare to reset to display: none when building other condition layouts.
         majorDo.style.display = "block"
         minorDi.style.display = "none"
@@ -249,14 +313,17 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Clouds") {
+        skies.style.background = "linear-gradient(to right, grey, lightblue, lightgrey, lightgreen, lightgrey, cyan)"
         sun.style.display = "none";
+        clouds.style.display = "block";
+        haze.style.display = "none";
+        rain.style.display = "none"
         tones.style.display = "block";
         majorDo.style.display = "block"
         minorDi.style.display = "none"
         majorRe.style.display = "block"
         minorRi.style.display = "block"
         majorMe.style.display = "none"
-
         majorFa.style.display = "block"
         minorFi.style.display = "none"
         majorSo.style.display = "block"
@@ -267,7 +334,10 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Haze") {
+        clouds.style.display = "none"
         sun.style.display = "none";
+        haze.style.display = "block"
+        rain.style.display = "none"
         tones.style.display = "block";
         majorDo.style.display = "block"
         minorDi.style.display = "block"
@@ -282,25 +352,46 @@ const weatherByZip = () => {
         minorLi.style.display = "none"
         majorTe.style.display = "block"
         majorDoTop.style.display = "block"
+        return
+      } else if (weath === "Rain") {
+        clouds.style.display = "none"
+        sun.style.display = "none";
+        haze.style.display = "none";
+        rain.style.display = "block"
+        tones.style.display = "block";
+        majorDo.style.display = "block"
+        minorDi.style.display = "none"
+        majorRe.style.display = "none"
+        minorRi.style.display = "block"
+        majorMe.style.display = "none"
+        majorFa.style.display = "block"
+        minorFi.style.display = "block"
+        majorSo.style.display = "block"
+        minorSi.style.display = "none"
+        majorLa.style.display = "none"
+        minorLi.style.display = "block"
+        majorTe.style.display = "block"
+        majorDoTop.style.display = "block"
+        return
       }
       else {
+        clouds.style.display = "none"
         sun.style.display = "none"
+        haze.style.display = "none"
+        rain.style.display = "none"
         tones.style.display = "none"
+
         return
       }
     }
-    clearSky("Haze");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze
+    clearSky(condition);  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog
   })
 
   return
 }
 weatherByZip();
 
-const tones = document.querySelector('.tones');
 
-//tentative page/weather/tone render functions
-const cloudySky = (weath) => {
-}
 
 
 // const clearSky = (weath) => {
