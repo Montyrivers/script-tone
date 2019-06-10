@@ -24,6 +24,12 @@ p {
 #rain {
   display: none;
 }
+#fog {
+  display: none;
+}
+#mist {
+  display: none;
+}
 section {
   background-color: turquoise;
 } 

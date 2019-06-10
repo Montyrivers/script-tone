@@ -1,10 +1,17 @@
-# script-tone
-access and playback soundfonts thru webaudio and webmidi using the webaudiosoundfont API
-can be run by saving the API and soundfonts locally or through CDM linking the API and even the external sound playback files remotely.
+-objective:
+access and playback soundfonts thru webaudio using webaudiofont api library linked through the CDM.  
+dynamically display national weather data searched by zip code using openweathermap api.  create a responsive web app that alters tones and styling based on data returned from weather API and provides a fun easter egg in the form of clickable elements that produce tones and have relevant styling/animation.
 
-two proof of concept examples temporarily loaded in index.html and midikey.html pulled from the API website.  please turn up your volume and load the files using google chrome.  the html contains links to the api scripts.
+So far:
+-successful API call made to openweathermap, relevant object keys identified and unpacked from returned object.
 
-end product will have button keys arranged that when played back will play back the corresponding tones for do re mi fa so la ti do. 
+-parsed weather data to display in readable form i.e. wind direcrion n, s, e, w and temperature in F/C, wind speed in mph/kph, location, etc
 
-stretch goals will be a dropdown for choosing different instrument sounds and an event listener for connecting an external hardware instrument connected to the host compueter that will receive and parse midi note on/off data.
+-webaudiofont library functions created and implemented with associated click event listeners.  
 
+-multiple layouts created and rendered upon page load which are displayed based on openweathermap object key data.
+
+
+-----
+immediate goals:  identify more weather conditions and create layouts accordingly.
+add styling and structure to existing web page and layouts.

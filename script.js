@@ -3,9 +3,9 @@
 
 
 //initialization of WebAudiokit that runs native in GoogleChrome and other supported browsers via extensions. declaring and play() function that is called to test that webaudiofont library by surikov is working.
-var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
-var audioContext = new AudioContextFunc();
-var player = new WebAudioFontPlayer();
+let AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+let audioContext = new AudioContextFunc();
+let player = new WebAudioFontPlayer();
 player.loader.decodeAfterLoading(audioContext, '_tone_0250_SoundBlasterOld_sf2');
 player.loader.decodeAfterLoading(audioContext, '_tone_0010_SoundBlasterOld_sf2'); //sf2 patches should also be linked in the CDN in your HTML file.
 function play() {
@@ -53,9 +53,27 @@ const playRain = () => {
   player.queueWaveTable(audioContext, audioContext.destination
     , _tone_0010_SoundBlasterOld_sf2, 0, 15.76 * 4 + 7, 2);
   return false;
-
 }
-
+const playFog = () => {
+  //re ri  li
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.74 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 15.76 * 4 + 7, 2);
+  return false;
+}
+const playMist = () => {
+  //do ri si
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 14 * 4 + 7, 2);
+  player.queueWaveTable(audioContext, audioContext.destination
+    , _tone_0010_SoundBlasterOld_sf2, 0, 15.26 * 4 + 7, 2);
+  return false
+}
 //major scale note functions.  When called each generates a tone by note number multiplied up to an audible frequency, as well as a parameter that includes note duration.
 const playCfour = () => {
   player.queueWaveTable(audioContext, audioContext.destination
@@ -131,6 +149,8 @@ const rain = document.querySelector('#rain');
 const clear = document.querySelector('#clear');
 const clouds = document.querySelector('#clouds');
 const haze = document.querySelector('#haze');
+const fog = document.querySelector('#fog');
+const mist = document.querySelector('#mist');
 const majorDo = document.querySelector('#do');
 const minorDi = document.querySelector('#di');
 const majorRe = document.querySelector('#re');
@@ -156,6 +176,12 @@ haze.addEventListener("click", function () {
 rain.addEventListener("click", function () {
   playRain();
 });
+fog.addEventListener("click", function () {
+  playFog();
+})
+mist.addEventListener("click", function () {
+  playMist();
+})
 majorDo.addEventListener("click", function () {
   playCfour();
 });
@@ -209,7 +235,7 @@ const weatherSearchButton = document.querySelector('button');
 const weatherByZip = () => {
   weatherSearchButton.addEventListener("click", async () => {
     const input = document.querySelector('input');
-    const inputZip = input.value;
+    const inputZip = input.value.split(" ").join('');
     const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${inputZip},us&APPID=${APIKey}`,
       {
         "x-api-key": APIKey
@@ -298,6 +324,9 @@ const weatherByZip = () => {
         sun.style.display = "block"
         clouds.style.display = "none"
         haze.style.display = "none"
+        fog.style.display = "none"
+        mist.style.display = "none"
+        snow.style.display = "none"
         tones.style.display = "block"; //prepare to reset to display: none when building other condition layouts.
         majorDo.style.display = "block"
         minorDi.style.display = "none"
@@ -318,6 +347,9 @@ const weatherByZip = () => {
         clouds.style.display = "block";
         haze.style.display = "none";
         rain.style.display = "none"
+        fog.style.display = "none"
+        mist.style.display = "none"
+        snow.style.display = "none"
         tones.style.display = "block";
         majorDo.style.display = "block"
         minorDi.style.display = "none"
@@ -338,6 +370,9 @@ const weatherByZip = () => {
         sun.style.display = "none";
         haze.style.display = "block"
         rain.style.display = "none"
+        fog.style.display = "none"
+        mist.style.display = "none"
+        snow.style.display = "none"
         tones.style.display = "block";
         majorDo.style.display = "block"
         minorDi.style.display = "block"
@@ -358,6 +393,9 @@ const weatherByZip = () => {
         sun.style.display = "none";
         haze.style.display = "none";
         rain.style.display = "block"
+        fog.style.display = "none"
+        mist.style.display = "none"
+        snow.style.display = "none"
         tones.style.display = "block";
         majorDo.style.display = "block"
         minorDi.style.display = "none"
@@ -373,6 +411,77 @@ const weatherByZip = () => {
         majorTe.style.display = "block"
         majorDoTop.style.display = "block"
         return
+      } else if (weath === "Fog") {
+        //do re ri fa so si li dotop
+        sun.style.display = "none";
+        clouds.style.display = "none";
+        haze.style.display = "none";
+        rain.style.display = "none"
+        fog.style.display = "block"
+        mist.style.display = "none"
+        snow.style.display = "none"
+        tones.style.display = "block";
+        majorDo.style.display = "block"
+        minorDi.style.display = "none"
+        majorRe.style.display = "block"
+        minorRi.style.display = "block"
+        majorMe.style.display = "none"
+        majorFa.style.display = "block"
+        minorFi.style.display = "none"
+        majorSo.style.display = "block"
+        minorSi.style.display = "block"
+        majorLa.style.display = "none"
+        minorLi.style.display = "block"
+        majorTe.style.display = "none"
+        majorDoTop.style.display = "block"
+      } else if (weath === "Mist") {
+        //do di ri fa fi si li dotop
+        sun.style.display = "none";
+        clouds.style.display = "none";
+        haze.style.display = "none";
+        rain.style.display = "none"
+        fog.style.display = "none"
+        mist.style.display = "block"
+        snow.style.display = "none"
+        tones.style.display = "block";
+        majorDo.style.display = "block"
+        minorDi.style.display = "block"
+        majorRe.style.display = "none"
+        minorRi.style.display = "block"
+        majorMe.style.display = "none"
+        majorFa.style.display = "block"
+        minorFi.style.display = "block"
+        majorSo.style.display = "none"
+        minorSi.style.display = "block"
+        majorLa.style.display = "none"
+        minorLi.style.display = "block"
+        majorTe.style.display = "none"
+        majorDoTop.style.display = "block"
+
+        return
+      } else if (weath === "Snow") {
+        //
+        sun.style.display = "none";
+        clouds.style.display = "none";
+        haze.style.display = "none";
+        rain.style.display = "none"
+        fog.style.display = "none"
+        mist.style.display = "none"
+        snow.style.display = "block"
+        tones.style.display = "block";
+        majorDo.style.display = "block"
+        minorDi.style.display = "block"
+        majorRe.style.display = "none"
+        minorRi.style.display = "block"
+        majorMe.style.display = "none"
+        majorFa.style.display = "block"
+        minorFi.style.display = "block"
+        majorSo.style.display = "none"
+        minorSi.style.display = "block"
+        majorLa.style.display = "none"
+        minorLi.style.display = "block"
+        majorTe.style.display = "none"
+        majorDoTop.style.display = "block"
       }
       else {
         clouds.style.display = "none"
@@ -380,12 +489,12 @@ const weatherByZip = () => {
         haze.style.display = "none"
         rain.style.display = "none"
         tones.style.display = "none"
-
+        mist.style.display = "none"
         return
       }
     }
-    clearSky(condition);  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog
-  })
+    clearSky("Mist");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?
+  });
 
   return
 }
