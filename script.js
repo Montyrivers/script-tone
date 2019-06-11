@@ -2,7 +2,7 @@
 //Webaudio init and SoundFont Playback Logic ::::::::::
 
 
-//initialization of WebAudiokit that runs native in GoogleChrome and other supported browsers via extensions. declaring and play() function that is called to test that webaudiofont library by surikov is working.
+//initialization of WebAudiokit that runs native in GoogleChrome and other supported browsers via extensions. declaring and play() function that is called to test that webaudiofont library by surikov is working.**removed play() function
 let AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 let audioContext = new AudioContextFunc();
 let player = new WebAudioFontPlayer();
@@ -73,11 +73,11 @@ const playMist = () => {
 }
 const playSnow = () => {
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0530_SoundBlasterOld_sf2, 0, 13.24 * 4 + 7, 2);
+    , _tone_0530_SoundBlasterOld_sf2, 0, 13.54 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0530_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
+    , _tone_0530_SoundBlasterOld_sf2, 0, 15.99 * 4 + 7, 2);
   player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0530_SoundBlasterOld_sf2, 0, 16.24 * 4 + 7, 2);
+    , _tone_0530_SoundBlasterOld_sf2, 0, 16.50 * 4 + 7, 2);
   return false;
 }
 //major scale note functions.  When called each generates a tone by note number multiplied up to an audible frequency, as well as a parameter that includes note duration.
@@ -238,7 +238,13 @@ const weatherByZip = () => {
     console.log(response.data.name); // name of nearest data node based on zip
     const condition = response.data.weather[0].main //data object key to be parsed when selecting render function.
     const windDir = response.data.wind.deg;
-    const windDirFloor = Math.floor(windDir);
+    const ifDirection = (dir) => {
+      if (dir === undefined) {
+        return "None"
+      } else {
+        return dir;
+      }
+    };
     const windCompass = (dir) => {  //windDir is called as the parameter argument to produce a directional translation of the numerical node.
       if (dir <= 9 || dir >= 352) {
         return "N";
@@ -256,13 +262,15 @@ const weatherByZip = () => {
         return "W"
       } else if (dir >= 276 && dir <= 351) {
         return "NW"
+      } else {
+        return "No wind."
       }
     }
     const windGst = response.data.wind.gust;
     const windGstMph = Math.floor(windGst / .621371);
     const ifGusts = (gst, gstMph) => { //function with windGst or windGstMph entered as parameter argument.  sometimes when there are no gusting winds this object key is omitted from the API call, resulting in undefined. will return a string if call is omitted.
       if (gst === undefined) {
-        return "Gentle Breeze"
+        return "Barely a Breeze"
       } else {
         return `${gst}kph, ${gstMph}mph`
       }
@@ -348,7 +356,7 @@ const weatherByZip = () => {
         <li>Humidity Index: ${humidity}</li>
         <li>Wind Speed: ${windSpd}kph, ${windSpdMph}mph</li>
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
-        <li>Wind Direction: ${windDirFloor} Degrees ${windCompass(windDir)} </li>`
+        <li>Wind Direction: ${ifDirection(windDir)} Degrees ${windCompass(windDir)} </li>`
       statsSection.appendChild(stats);
       if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.
         scaleArtReset();
@@ -523,6 +531,9 @@ const weatherByZip = () => {
         return
       } else if (weath === "Snow") {
         scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/little-snow.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/snow.png" alt="My test image"></img>`);
         skies.style.background = "linear-gradient(to left, white, whitesmoke, silver, whitesmoke, white, silver)";
         //do re me fa so si li dotop
         sun.style.display = "none";
@@ -558,9 +569,8 @@ const weatherByZip = () => {
         return
       }
     }
-    clearSky(condition);  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?, can substitute condition argument for condition string to test layouts.
+    clearSky("Snow");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?, can substitute condition argument for condition string to test layouts.
   });
-
   return
 }
 weatherByZip();
