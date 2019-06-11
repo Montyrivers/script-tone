@@ -50,9 +50,8 @@ section .tones {
 div {
   position: relative;
   padding: 3em;
-  display: grid;
   columns: 8;
-  margin: 0 auto;
+  width: 0;
   border-radius: 100%;
 
 }
@@ -110,15 +109,7 @@ div {
   display: none;
 }
 
-
-
-
-
-
-
-
-
 footer {
   position: relative;
-  margin-top: 800px;
+  margin-top: 400px;
 }

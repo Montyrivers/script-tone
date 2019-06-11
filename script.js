@@ -12,15 +12,7 @@ player.loader.decodeAfterLoading(audioContext, '_tone_0150_SoundBlasterOld_sf2')
 player.loader.decodeAfterLoading(audioContext, '_tone_0480_SoundBlasterOld_sf2');
 player.loader.decodeAfterLoading(audioContext, '_tone_0530_SoundBlasterOld_sf2');
 player.loader.decodeAfterLoading(audioContext, '_tone_0140_SoundBlasterOld_sf2');//sf2 patches should also be linked in the CDN in your HTML file.
-function play() {
-  player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 12 * 4 + 7, 2);
-  player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 13.74 * 4 + 7, 2);
-  player.queueWaveTable(audioContext, audioContext.destination
-    , _tone_0010_SoundBlasterOld_sf2, 0, 14.99 * 4 + 7, 2);
-  return false;  //returning a false boolean kills the function process for each note.  this is important because without this the cpu and memory allocated to produce sound from this function might not terminate without returning false at the end.
-}
+
 //Chord Functions.
 const playClear = () => {
   player.queueWaveTable(audioContext, audioContext.destination
@@ -179,66 +171,26 @@ const majorLa = document.querySelector('#la');
 const minorLi = document.querySelector('#li');
 const majorTe = document.querySelector('#te');
 const majorDoTop = document.querySelector('#do-top');
-clear.addEventListener("click", function () {
-  playClear();
-});
-clouds.addEventListener("click", function () {
-  playClouds();
-});
-haze.addEventListener("click", function () {
-  playHaze();
-});
-rain.addEventListener("click", function () {
-  playRain();
-});
-fog.addEventListener("click", function () {
-  playFog();
-})
-mist.addEventListener("click", function () {
-  playMist();
-})
-snow.addEventListener("click", function () {
-  playSnow();
-})
-majorDo.addEventListener("click", function () {
-  playCfour();
-});
-minorDi.addEventListener("click", function () {
-  playCshFour();
-});
-majorRe.addEventListener("click", function () {
-  playDfour();
-});
-minorRi.addEventListener("click", function () {
-  playDshFour();
-});
-majorMe.addEventListener("click", function () {
-  playEfour();
-});
-majorFa.addEventListener("click", function () {
-  playFfour();
-});
-minorFi.addEventListener("click", function () {
-  playFshFour();
-});
-majorSo.addEventListener("click", function () {
-  playGfour();
-});
-minorSi.addEventListener("click", function () {
-  playGshFour();
-});
-majorLa.addEventListener("click", function () {
-  playAfour();
-});
-minorLi.addEventListener("click", function () {
-  playAshFour();
-});
-majorTe.addEventListener("click", function () {
-  playBfour();
-});
-majorDoTop.addEventListener("click", function () {
-  playCfive();
-});
+clear.addEventListener("click", playClear);
+clouds.addEventListener("click", playClouds);
+haze.addEventListener("click", playHaze);
+rain.addEventListener("click", playRain);
+fog.addEventListener("click", playFog);
+mist.addEventListener("click", playMist);
+snow.addEventListener("click", playSnow);
+majorDo.addEventListener("click", playCfour);
+minorDi.addEventListener("click", playCshFour);
+majorRe.addEventListener("click", playDfour);
+minorRi.addEventListener("click", playDshFour);
+majorMe.addEventListener("click", playEfour);
+majorFa.addEventListener("click", playFfour);
+minorFi.addEventListener("click", playFshFour);
+majorSo.addEventListener("click", playGfour);
+minorSi.addEventListener("click", playGshFour);
+majorLa.addEventListener("click", playAfour);
+minorLi.addEventListener("click", playAshFour);
+majorTe.addEventListener("click", playBfour);
+majorDoTop.addEventListener("click", playCfive);
 
 
 
@@ -250,6 +202,18 @@ majorDoTop.addEventListener("click", function () {
 const APIKey = 'f6173d9c1bfcc2cc8e514e4c1c85f90c'
 const cityByZip = 'api.openweathermap.org/data/2.5/weather?zip=,us'
 const weatherSearchButton = document.querySelector('button');
+const input = document.querySelector('input');
+
+
+
+input.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.querySelector('button').click();
+  }
+});
+// ^ event listener to add ENTER button functionality to input bar instead of just clicking the Current Weather button.
+
 const weatherByZip = () => {
   weatherSearchButton.addEventListener("click", async () => {
     const input = document.querySelector('input');
@@ -274,6 +238,7 @@ const weatherByZip = () => {
     console.log(response.data.name); // name of nearest data node based on zip
     const condition = response.data.weather[0].main //data object key to be parsed when selecting render function.
     const windDir = response.data.wind.deg;
+    const windDirFloor = Math.floor(windDir);
     const windCompass = (dir) => {  //windDir is called as the parameter argument to produce a directional translation of the numerical node.
       if (dir <= 9 || dir >= 352) {
         return "N";
@@ -323,7 +288,56 @@ const weatherByZip = () => {
       const tones = document.querySelector('.tones');
       const sun = document.querySelector('#clear');
       const stats = document.createElement('ul');
-      const skies = document.querySelector('body')
+      const skies = document.querySelector('body');
+
+      //functions that clear and then repopulate elements of applicable image items for weather conditions:
+      const chordArt = (imgLink) => {
+        clouds.innerHTML = `${imgLink}`
+        sun.innerHTML = `${imgLink}`
+        haze.innerHTML = `${imgLink}`
+        rain.innerHTML = `${imgLink}`
+        mist.innerHTML = `${imgLink}`
+        snow.innerHTML = `${imgLink}`
+        fog.innerHTML = `${imgLink}`
+      }
+      const chordArtReset = () => {
+        clouds.innerHTML = ""
+        sun.innerHTML = ""
+        haze.innerHTML = ""
+        rain.innerHTML = ""
+        mist.innerHTML = ""
+        snow.innerHTML = ""
+      }
+      const scaleArt = (imgLink) => {
+        majorDo.innerHTML = `${imgLink}`
+        minorDi.innerHTML = `${imgLink}`
+        majorRe.innerHTML = `${imgLink}`
+        minorRi.innerHTML = `${imgLink}`
+        majorMe.innerHTML = `${imgLink}`
+        majorFa.innerHTML = `${imgLink}`
+        minorFi.innerHTML = `${imgLink}`
+        majorSo.innerHTML = `${imgLink}`
+        minorSi.innerHTML = `${imgLink}`
+        majorLa.innerHTML = `${imgLink}`
+        minorLi.innerHTML = `${imgLink}`
+        majorTe.innerHTML = `${imgLink}`
+        majorDoTop.innerHTML = `${imgLink}`
+      }
+      const scaleArtReset = () => {
+        majorDo.innerHTML = ""
+        minorDi.innerHTML = ""
+        majorRe.innerHTML = ""
+        minorRi.innerHTML = ""
+        majorMe.innerHTML = ""
+        majorFa.innerHTML = ""
+        minorFi.innerHTML = ""
+        majorSo.innerHTML = ""
+        minorSi.innerHTML = ""
+        majorLa.innerHTML = ""
+        minorLi.innerHTML = ""
+        majorTe.innerHTML = ""
+        majorDoTop.innerHTML = ""
+      }
       statsSection.innerHTML = "";  //lists parsed weather object data
       stats.innerHTML = `
         <h1>${locale}</h1>
@@ -334,9 +348,13 @@ const weatherByZip = () => {
         <li>Humidity Index: ${humidity}</li>
         <li>Wind Speed: ${windSpd}kph, ${windSpdMph}mph</li>
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
-        <li>Wind Direction: ${windDir} Degrees ${windCompass(windDir)} </li>`
+        <li>Wind Direction: ${windDirFloor} Degrees ${windCompass(windDir)} </li>`
       statsSection.appendChild(stats);
-      if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.  
+      if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.
+        scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/white_cloud.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/sun.png" alt="My test image"></img>`);
         skies.style.background = "linear-gradient(to right, white, lightblue, lightpink, lightgreen, lightblue, cyan)"
         rain.style.display = "none"
         sun.style.display = "block"
@@ -349,6 +367,7 @@ const weatherByZip = () => {
         majorDo.style.display = "block"
         minorDi.style.display = "none"
         majorRe.style.display = "block"
+        minorRi.style.display = "none"
         majorMe.style.display = "block"
         majorFa.style.display = "block"
         minorFi.style.display = "none"
@@ -360,6 +379,10 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Clouds") {
+        scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/grey_cloud.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/clouds.png" alt="My test image"></img>`);
         skies.style.background = "linear-gradient(to right, grey, lightblue, lightgrey, lightgreen, lightgrey, cyan)"
         sun.style.display = "none";
         clouds.style.display = "block";
@@ -384,6 +407,10 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Haze") {
+        scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/little_smog.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/haze.png" alt="My test image"></img>`);
         skies.style.background = "linear-gradient(to left, orange, lightblue, cyan, orange, grey, orange)";
         //music element display settings:
         clouds.style.display = "none"
@@ -409,6 +436,10 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Rain") {
+        scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/rain_drop.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/rain_cloud.png" alt="My test image"></img>`);
         skies.style.background = "linear-gradient(to right, grey, whitesmoke, grey, silver, grey, whitesmoke)";
         //
         clouds.style.display = "none"
@@ -418,7 +449,7 @@ const weatherByZip = () => {
         fog.style.display = "none"
         mist.style.display = "none"
         snow.style.display = "none"
-        tones.style.display = "block";
+        tones.style.display = "block"
         majorDo.style.display = "block"
         minorDi.style.display = "none"
         majorRe.style.display = "none"
@@ -434,6 +465,10 @@ const weatherByZip = () => {
         majorDoTop.style.display = "block"
         return
       } else if (weath === "Fog") {
+        scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/little_fog.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/fog.png" alt="My test image"></img>`);
         //do re ri fa so si li dotop
         sun.style.display = "none";
         clouds.style.display = "none";
@@ -457,6 +492,10 @@ const weatherByZip = () => {
         majorTe.style.display = "none"
         majorDoTop.style.display = "block"
       } else if (weath === "Mist") {
+        scaleArtReset();
+        chordArtReset();
+        scaleArt(`<img src="assets/little_mist.png" alt="My test image"></img>`);
+        chordArt(`<img src="assets/mist.png" alt="My test image"></img>`);
         skies.style.background = "linear-gradient(to right, silver, lightblue, cyan, silver, lightblue, grey)";
         //do di ri fa fi si li dotop
         sun.style.display = "none";
@@ -483,6 +522,7 @@ const weatherByZip = () => {
 
         return
       } else if (weath === "Snow") {
+        scaleArtReset();
         skies.style.background = "linear-gradient(to left, white, whitesmoke, silver, whitesmoke, white, silver)";
         //do re me fa so si li dotop
         sun.style.display = "none";
@@ -518,7 +558,7 @@ const weatherByZip = () => {
         return
       }
     }
-    clearSky("Snow");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?
+    clearSky(condition);  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?, can substitute condition argument for condition string to test layouts.
   });
 
   return
@@ -526,6 +566,28 @@ const weatherByZip = () => {
 weatherByZip();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Scratch Code and Example Reference:
+
+
+//test event listener for qwerty keyboard logging.
+// document.addEventListener("keydown", function (event) {
+//   console.log(event.which);
+// });  
 
 
 // const clearSky = (weath) => {
