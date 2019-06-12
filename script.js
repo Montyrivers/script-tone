@@ -205,8 +205,6 @@ const cityByCity = ''
 const weatherSearchButton = document.querySelector('button');
 const input = document.querySelector('input');
 
-
-
 input.addEventListener("keydown", function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
@@ -215,14 +213,38 @@ input.addEventListener("keydown", function (event) {
 });
 // ^ event listener to add ENTER button functionality to input bar instead of just clicking the Current Weather button.
 
-const weatherByZip = () => {
+
+
+const weatherByZip = async () => {
   weatherSearchButton.addEventListener("click", async () => {
+    const plusSign = '\uFF0B'
     const input = document.querySelector('input');
     const inputZip = input.value.split(" ").join('');
-    const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${inputZip},us&APPID=${APIKey}`,
+    const inputCity = input.value.split(" ").join('+');
+    // console.log(typeof (input.value - 1));
+    // .split(" ").join('+');
+    // .replace(/ /g, "+")
+
+
+    const whichInput = () => {
+      const inputContains = /^[0-9]+$/
+      const zip = `zip=${inputZip},us`;
+      const city = `q=${inputCity}`;
+      if (input.value.match(inputContains)) {
+        return zip;
+      } else {
+        return city;
+      }
+    };
+    // console.log(input.value - 1)
+    console.log(whichInput());
+
+    let response = await axios.get(`http://api.openweathermap.org/data/2.5/weather?${whichInput()}&APPID=${APIKey}`,
       {
-        "x-api-key": APIKey
+        "x-api-key": APIKey,
       })
+
+
     // weather api call object data node break down:
     console.log(response);
     console.log(response.data);
