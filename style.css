@@ -1,11 +1,29 @@
 html {
-  font-size: 16px;
+  font-size: 12px;
+  font-family: 'Press Start 2P', cursive;
+}
+button {
+  font-size: 1em;
+  font-family: 'Press Start 2P', cursive;
 }
 header {
   height: 20% ;
   margin: 0;
   padding-top: .5%;
   background: linear-gradient(to right, cyan, lightblue, skyblue, blue, darkblue);
+}
+article {
+  height: 40em;
+  width: 40em;
+  border-radius: 100%;
+  position: relative;
+  background-color: yellow;
+  top: 30px;
+  text-align: center;
+}
+article h1 {
+  position: relative;
+  top: 190px;
 }
 h1 {
   font-size: 2em;
@@ -284,7 +302,7 @@ div {
 
 footer {
   background: linear-gradient(to right, cyan, lightblue, skyblue, blue, darkblue);
-
+height: 1em;
   position: absolute;
   bottom: 0;
   display: flex;

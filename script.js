@@ -201,6 +201,7 @@ majorDoTop.addEventListener("click", playCfive);
 //Weather API by-ZIP Call
 const APIKey = 'f6173d9c1bfcc2cc8e514e4c1c85f90c'
 const cityByZip = 'api.openweathermap.org/data/2.5/weather?zip=,us'
+const cityByCity = ''
 const weatherSearchButton = document.querySelector('button');
 const input = document.querySelector('input');
 
@@ -238,8 +239,9 @@ const weatherByZip = () => {
     console.log(response.data.name); // name of nearest data node based on zip
     const condition = response.data.weather[0].main //data object key to be parsed when selecting render function.
     const windDir = response.data.wind.deg;
+    const windDirFloor = Math.floor(windDir * 1);
     const ifDirection = (dir) => {
-      if (dir === undefined) {
+      if (dir === false) {
         return "None"
       } else {
         return dir;
@@ -356,7 +358,7 @@ const weatherByZip = () => {
         <li>Humidity Index: ${humidity}</li>
         <li>Wind Speed: ${windSpd}kph, ${windSpdMph}mph</li>
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
-        <li>Wind Direction: ${ifDirection(windDir)} Degrees ${windCompass(windDir)} </li>`
+        <li>Wind Direction: ${ifDirection(windDir)} Degrees ${windCompass(windDirFloor)} </li>`
       statsSection.appendChild(stats);
       if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.
         scaleArtReset();
@@ -569,7 +571,7 @@ const weatherByZip = () => {
         return
       }
     }
-    clearSky("Snow");  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?, can substitute condition argument for condition string to test layouts.
+    clearSky(condition);  // function call to determine page layout based on string returned by condition variable. so far I've found Clear, Clouds, Haze, Rain, Fog, Mist, Snow?, can substitute condition argument for condition string to test layouts.
   });
   return
 }
