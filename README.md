@@ -1,4 +1,4 @@
-# weather-tone
+# weather-font
 -objective:
 access and playback soundfonts thru webaudio using webaudiofont api library linked through the CDM.  
 dynamically display national weather data searched by zip code using openweathermap api.  create a responsive web app that alters tones and styling based on data returned from weather API and provides a fun easter egg in the form of clickable elements that produce tones and have relevant styling/animation.
@@ -11,6 +11,8 @@ So far:
 -webaudiofont library functions created and implemented with associated click event listeners.  
 
 -multiple layouts created and rendered upon page load which are displayed based on openweathermap object key data.
+
+-added enhanced search functionality.  you can now enter a city name which will search globally on top of just using a US  zip code.
 
 
 -----
