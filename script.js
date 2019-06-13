@@ -205,6 +205,7 @@ const cityByCity = ''
 const weatherSearchButton = document.querySelector('button');
 const input = document.querySelector('input');
 
+//listener to add enter button functionality for search input bar.
 input.addEventListener("keydown", function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
@@ -221,7 +222,7 @@ const weatherByZip = async () => {
     const input = document.querySelector('input');
     const inputZip = input.value.split(" ").join('');
     const inputCity = input.value.split(" ").join('+');
-    // console.log(typeof (input.value - 1));
+    // console.log(typeof (input.value - 1)); <- for input value testing when adding search features
     // .split(" ").join('+');
     // .replace(/ /g, "+")
 
@@ -243,7 +244,6 @@ const weatherByZip = async () => {
       {
         "x-api-key": APIKey,
       })
-
 
     // weather api call object data node break down:
     console.log(response);

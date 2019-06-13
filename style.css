@@ -332,3 +332,36 @@ height: 1em;
   padding: 2em;
   width: 96.55%;
 }
+
+
+/* MEDIA QUERIES */
+@media only screen 
+and (max-height: 560px) {
+.weather-stats {
+  font-size: .5em;
+}
+#landing {
+  font-size: 2em;
+  top: 60px;
+}
+.tones {
+  top: -5em;
+}
+.tones div {
+  width: 3em;
+  height: 3em;
+}
+.tones img{
+width: 3em;
+height: 3em;
+}
+.chords p {
+
+  height: 4em;
+  width: 4em;
+}
+.chords img {
+  height: 15em;
+  width: 15em;
+}
+}
