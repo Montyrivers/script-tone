@@ -1,4 +1,7 @@
 # weather-font
+
+Deployed app now on Surge:  http://weather-font.surge.sh
+
 -objective:
 -access and playback soundfonts thru webaudio using webaudiofont library 
 (https://surikov.github.io/webaudiofont/#how-to-use) linked through the CDM. get back an object from openweathermap

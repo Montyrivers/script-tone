@@ -373,14 +373,14 @@ const weatherByZip = async () => {
       statsSection.innerHTML = "";  //lists parsed weather object data
       stats.innerHTML = `
         <h1>${locale}</h1>
-        <li>Condition: ${condition}</li>
+        <li>Condition: ${condition}</li><br>
         <li>Current Temp: ${toCelsius}C, ${toFahrenheit}F</li>
         <li>Daily-Low: ${lowToCelsius}C, ${lowToFahrenheit}F</li>
         <li>Daily-High: ${highToCelsius}C, ${highToFahrenheit}F</li>
-        <li>Humidity Index: ${humidity}</li>
+        <li>Humidity Index: ${humidity}</li><br>
         <li>Wind Speed: ${windSpd}kph, ${windSpdMph}mph</li>
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
-        <li>Wind Direction: ${ifDirection(windDir)} Degrees ${windCompass(windDir)} </li>`
+        <li>Wind Direction:${ifDirection(windDir)} Degrees ${windCompass(windDir)} </li>`
       statsSection.appendChild(stats);
       if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.
         scaleArtReset();
