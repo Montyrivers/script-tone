@@ -263,7 +263,7 @@ const weatherByZip = async () => {
     const windDir = response.data.wind.deg;
     const windDirFloor = Math.floor(windDir * 1);
     const ifDirection = (dir) => {
-      if (dir === false) {
+      if (dir === undefined) {
         return "None"
       } else {
         return dir;
@@ -380,7 +380,7 @@ const weatherByZip = async () => {
         <li>Humidity Index: ${humidity}</li>
         <li>Wind Speed: ${windSpd}kph, ${windSpdMph}mph</li>
         <li>Gusts: ${ifGusts(windGst, windGstMph)}</li>
-        <li>Wind Direction: ${ifDirection(windDir)} Degrees ${windCompass(windDirFloor)} </li>`
+        <li>Wind Direction: ${ifDirection(windDir)} Degrees ${windCompass(windDir)} </li>`
       statsSection.appendChild(stats);
       if (weath === "Clear") {  //If statements governing which elements are hidden and which are altered and displayed.
         scaleArtReset();
